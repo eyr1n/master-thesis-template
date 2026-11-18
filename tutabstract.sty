@@ -1,0 +1,67 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{tutabstract}
+
+\RequirePackage{tabularray}
+
+\def\supervisor#1{\def\abs@supervisor{#1}}
+\def\supervisoren#1{\def\abs@supervisoren{#1}}
+\def\titleen#1{\def\abs@titleen{#1}}
+\def\authoren#1{\def\abs@authoren{#1}}
+\def\departmenten#1{\def\abs@departmenten{#1}}
+\def\abstractdate#1#2#3{\def\abs@y{#1}\def\abs@m{#2}\def\abs@d{#3}}
+
+\NewTblrEnviron{abstblr}
+\SetTblrInner[abstblr]{hlines, vlines, cells={m}, rowsep=.5\baselineskip, rows={ht=\baselineskip}}
+
+\newcommand\abs@page[2]{%
+  \begin{titlepage}
+    #1%
+    \hfill\abs@date\par
+    \noindent
+    \raisebox{-\height}{\begin{abstblr}{width=\abs@split\linewidth, colspec={Q[c] X Q[c] Q[c]}}
+      \SetCell[c=2]{l} \abs@department & & \abs@idlabel & \@idnum \\
+      \abs@namelabel & \SetCell[c=3]{l} \abs@name & & \\
+    \end{abstblr}}\hfill
+    \raisebox{-\height}{\begin{abstblr}{width=\dimexpr\linewidth-\abs@split\linewidth-1em, colspec={Q[c] X}}
+      \SetCell[r=2]{c} \abs@suplabel & \SetCell[r=2]{l} {\abs@sup} \\
+      & \\
+    \end{abstblr}}\par
+    \vspace{2\baselineskip}{\centering\abs@heading\par}\smallskip
+    \noindent
+    \begin{abstblr}{width=\linewidth, colspec={Q[c] X}, rows={ht=2\baselineskip}}
+      \abs@titlelabel & {\abs@title} \\
+    \end{abstblr}\par
+    \vspace{2\baselineskip}\noindent
+    \fbox{\parbox[t][\dimexpr\textheight-\pagetotal-2\fboxsep-2\fboxrule][t]
+      {\dimexpr\linewidth-2\fboxsep-2\fboxrule}{\parindent=1\zw #2}}
+  \end{titlepage}}
+
+\NewDocumentEnvironment{abstractja}{+b}{\abs@page{%
+  \fontsize{10.5pt}{15pt}\selectfont
+  \def\abs@split{.55}%
+  \def\abs@date{\abs@y 年　\abs@m 月　\abs@d 日}%
+  \def\abs@department{\@department}%
+  \def\abs@idlabel{学籍番号}%
+  \def\abs@namelabel{申請者氏名}%
+  \def\abs@name{\@author}%
+  \def\abs@suplabel{指導教員氏名}%
+  \def\abs@sup{\abs@supervisor}%
+  \def\abs@heading{論　文　要　旨（修士）}%
+  \def\abs@titlelabel{論文題目}%
+  \def\abs@title{\@title}%
+}{#1}}{}
+
+\NewDocumentEnvironment{abstracten}{+b}{\abs@page{%
+  \fontsize{10.5pt}{12.5pt}\selectfont
+  \def\abs@split{.65}%
+  \def\abs@date{\underline{DATE: \abs@y/\two@digits{\abs@m}/\two@digits{\abs@d}}}%
+  \def\abs@department{Department of \abs@departmenten}%
+  \def\abs@idlabel{ID}%
+  \def\abs@namelabel{Name}%
+  \def\abs@name{\abs@authoren}%
+  \def\abs@suplabel{Supervisor}%
+  \def\abs@sup{\abs@supervisoren}%
+  \def\abs@heading{\fontsize{12pt}{13.8pt}\selectfont Abstract}%
+  \def\abs@titlelabel{Title}%
+  \def\abs@title{\abs@titleen}%
+}{#1}}{}

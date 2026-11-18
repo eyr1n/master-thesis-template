@@ -1,0 +1,13 @@
+{
+  "name": "master-thesis",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "James-Yu.latex-workshop"
+      ]
+    }
+  }
+}

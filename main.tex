@@ -1,0 +1,84 @@
+\documentclass[a4paper,11ptj]{ltjsreport}
+
+% フォントの設定
+\usepackage[deluxe]{luatexja-preset}
+\setmainfont{TeX Gyre Termes}
+\setsansfont{TeX Gyre Heros}
+\setmonofont{Inconsolatazi4}
+\usepackage{amsmath}
+\usepackage{unicode-math}
+\setmathfont{STIX Two Math}
+
+% 諸々のパッケージ
+\usepackage{subfiles}
+\usepackage{graphicx}
+\usepackage{minted}
+
+% 修論用スタイル
+\usepackage{tutthesis}
+\usepackage{tutabstract}
+
+% hyperrefは最後
+\usepackage[bookmarksnumbered]{hyperref}
+
+% コードのスタイル
+\setminted{
+  linenos,
+  breaklines,
+  frame=single,
+  style=friendly,
+  fontsize=\small,
+}
+
+\title{タイトル}
+\titleen{Title}
+\idnum{211808}
+\author{岩井 凜}
+\authoren{Rin Iwai}
+\department{情報・知能工学専攻}
+\departmenten{Computer Science and Engineering}
+\degree{修士（工学）}
+\gyear{2026}
+\supervisor{佐藤 幸紀}
+\supervisoren{Yukinori Sato}
+\abstractdate{2026}{12}{1}
+
+\begin{document}
+\maketitle
+
+% 日本語アブスト
+\begin{abstractja}
+(要旨 1,000字程度)
+\end{abstractja}
+
+% 英語アブスト
+\begin{abstracten}
+(800 words)
+\end{abstracten}
+
+\pagenumbering{roman}
+\setcounter{tocdepth}{3}
+\tableofcontents
+\listoffigures
+\listoftables
+
+\clearpage
+\pagenumbering{arabic}
+
+% 章ごとにページを羅列する
+\subfile{01_introduction/introduction}
+
+% 参考文献
+\bibliographystyle{junsrt}
+\bibliography{refs}
+
+\chapter*{研究業績}
+\addcontentsline{toc}{chapter}{研究業績}
+
+\chapter*{謝辞}
+\addcontentsline{toc}{chapter}{謝辞}
+
+\appendix
+\chapter{付録}
+
+\end{document}
